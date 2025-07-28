@@ -64,7 +64,7 @@
       </button>
       <p class="mt-6 flex justify-center text-sm font-light text-gray-600">
         Already have an account?
-        <a href="/login.html" class="ml-1 font-bold text-cyan-500">Login</a>
+        <a href="/index.html" class="ml-1 font-bold text-cyan-500">Login</a>
       </p>
     </div>
   </form>
@@ -89,7 +89,7 @@
         const data = await response.json();
         if (response.ok) {
           alert("Signup successful! Now you can login.");
-          window.location.href = "login.html";
+          window.location.href = "index.html";
         } else {
           alert(data.message || "Signup failed");
         }
