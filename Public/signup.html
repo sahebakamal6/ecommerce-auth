@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+</head>
+
+<body class="bg-gradient-to-br from-cyan-100 to-blue-200 flex justify-center items-center h-screen">
+   <!-- Login Card with Form -->
+  <form id="signup-form" class="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+    <div class="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 text-white shadow-lg shadow-cyan-500/40">
+      <h3 class="text-3xl font-semibold">Sign Up</h3>
+    </div>
+
+    <div class="flex flex-col gap-4 p-6">
+      <div class="relative h-11 w-full">
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          placeholder=""
+          class="peer h-full w-full rounded-md border focus:outline-none
+ border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 text-sm text-blue-gray-700 placeholder-shown:border focus:border-2 focus:border-cyan-500"
+        />
+        <label class="absolute left-0 -top-1.5 text-[11px] text-blue-gray-400 peer-placeholder-shown:text-sm peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 peer-focus:top-0.5 peer-focus:text-[11px] peer-focus:text-cyan-500 transition-all">Name</label>
+      </div>
+      <div class="relative h-11 w-full">
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          placeholder=""
+          class="peer h-full w-full rounded-md focus:outline-none
+ border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 text-sm text-blue-gray-700 placeholder-shown:border focus:border-2 focus:border-cyan-500"
+        />
+        <label class="absolute left-0 -top-1.5 text-[11px] text-blue-gray-400 peer-placeholder-shown:text-sm peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 peer-focus:top-0.5 peer-focus:text-[11px] peer-focus:text-cyan-500 transition-all">Email</label>
+      </div>
+
+      <div class="relative h-11 w-full">
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          placeholder=""
+          class="peer h-full w-full rounded-md focus:outline-none
+ border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 text-sm text-blue-gray-700 placeholder-shown:border focus:border-2 focus:border-cyan-500"
+        />
+        <label class="absolute left-0 -top-1.5 text-[11px] text-blue-gray-400 peer-placeholder-shown:text-sm peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 peer-focus:top-0.5 peer-focus:text-[11px] peer-focus:text-cyan-500 transition-all">Password</label>
+      </div>
+
+    <div class="p-6 pt-0">
+      <button
+        type="submit"
+        class="block w-full rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center text-xs font-bold uppercase text-white shadow-md hover:shadow-lg"
+      >
+        Sign Up
+      </button>
+      <p class="mt-6 flex justify-center text-sm font-light text-gray-600">
+        Already have an account?
+        <a href="/login.html" class="ml-1 font-bold text-cyan-500">Login</a>
+      </p>
+    </div>
+  </form>
+
+  <script>
+    document.getElementById("signup-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert("Signup successful! Now you can login.");
+          window.location.href = "login.html";
+        } else {
+          alert(data.message || "Signup failed");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Something went wrong.");
+      }
+    });
+  </script>
+</body>
+
+</html>
